@@ -1,4 +1,4 @@
-README
+Code made 100% with Gemini; this exists purely for the simplification of my work.
 
 ENGLISH
 
