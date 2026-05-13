@@ -10,7 +10,7 @@ def generate_barcode_pdf(root_dir, output_filename):
     # Configuration based on your image
     img_w, img_h = 90 * mm, 30 * mm  # Approximate barcode size
     v_spacing = 5 * mm               # Gap between stacked barcodes
-    margin = 8 * mm                # Page margins
+    margin = 8 * mm                  # Page margins
     
     # Define the 4 corner starting positions (bottom-left of each set)
     # Positions are: [Top-Left, Top-Right, Bottom-Left, Bottom-Right]
@@ -29,10 +29,12 @@ def generate_barcode_pdf(root_dir, output_filename):
     
     for branch in branches:
         branch_path = os.path.join(root_dir, branch)
-        # Sort files by the number in "barcode (X).gif"
+        # Sort files by the number in "barcode (X).gif" with exception of first one without any index
         files = [f for f in os.listdir(branch_path) if f.endswith(".gif")]
+        files.remove("barcode.gif")
         files.sort(key=lambda x: int(x.split('(')[1].split(')')[0]))
-        
+        files.insert(0, "barcode.gif")
+
         for f in files:
             all_barcodes.append(os.path.join(branch_path, f))
 
@@ -55,4 +57,4 @@ def generate_barcode_pdf(root_dir, output_filename):
     print(f"Success! PDF saved as {output_filename}")
 
 # Usage
-generate_barcode_pdf("barcodes", "Final_Barcodes_Layout.pdf")
+generate_barcode_pdf("barcodes", "Barcodes_Layout.pdf")
